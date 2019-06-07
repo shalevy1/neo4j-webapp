@@ -1,14 +1,14 @@
 ##Neo4j python driver + Flask
 
-####Requirements
+###Requirements
 Python & Neo4j server
 
-####Installation
+###Installation
 ```bash
 pip install -r requirements.txt
 ```
 
-####Run server
+###Run server
 ```bash
 run.sh
 ```
