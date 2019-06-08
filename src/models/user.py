@@ -55,7 +55,7 @@ class User(object):
                             "userName: $username, "
                             "userBasicInfo: $user_basic_info, "
                             "userContactInfo: $user_contact_info, "
-                            "userRelationship: $user_relationship_info"
+                            "userRelationshipInfo: $user_relationship_info"
                             "}) RETURN n",
                             user_id=user_id,
                             username=username,
@@ -64,20 +64,24 @@ class User(object):
                             user_relationship_info=user_relationship_info).single().value())
 
     @classmethod
-    def update_user(cls, user_id, username, user_basic_info, user_contact_info, user_relationship_info):
+    def update_user(cls, old_user_id, user_id, username, user_basic_info, user_contact_info, user_relationship_info):
         with get_db() as session:
+            if old_user_id.isdigit():
+                old_user_id = "profile.php?id=" + old_user_id
+            old_user_id = "https://www.facebook.com/" + old_user_id
             if user_id.isdigit():
                 user_id = "profile.php?id=" + user_id
             user_id = "https://www.facebook.com/" + user_id
             return cls.serialize_user(
-                session.run("MATCH (n:User {userFBlink: “https://www.facebook.com/”+$user_id})"
+                session.run("MATCH (n:User {userFBlink: $old_user_id})"
                             "SET n = {"
                             "userFBlink: $user_id,"
                             "userName: $username,"
                             "userBasicInfo: $user_basic_info,"
                             "userContactInfo: $user_contact_info,"
-                            "userRelationship: $user_relationship_info"
+                            "userRelationshipInfo: $user_relationship_info"
                             "} RETURN n",
+                            old_user_id=old_user_id,
                             user_id=user_id,
                             username=username,
                             user_basic_info=user_basic_info,

@@ -9,6 +9,9 @@ driver = GraphDatabase.driver(uri, auth=(user, password))
 
 
 def get_db():
+    '''
     if not hasattr(g, 'neo4j_db'):
         g.neo4j_db = driver.session()
     return g.neo4j_db
+    '''
+    return driver.session()
