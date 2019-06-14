@@ -10,7 +10,7 @@ class Group(object):
             return None
         else:
             return {
-                'group_id': group['group_link'],
+                'group_id': cls.form_group_id(group['groupLink']),
                 'group_name': group['groupName'],
                 'group_link': group['groupLink']
             }

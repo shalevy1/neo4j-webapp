@@ -118,7 +118,7 @@ class User(object):
             return Work.serialize_work(session.run("MATCH (n:User {userFBlink: $user_fb_link})"
                                                    "CREATE (n)-[:WORK_AT]->(w:WorkPlace {"
                                                    "workPlaceName: $work_place_name, "
-                                                   "workPlaceLink: $work_place_link})",
+                                                   "workPlaceLink: $work_place_link}) RETURN w",
                                                    user_fb_link=user_fb_link,
                                                    work_place_name=work_place_name,
                                                    work_place_link=work_place_link).single().value())
