@@ -1,5 +1,4 @@
 from database import get_db
-from src.models.user import User
 
 
 class Group(object):
@@ -19,7 +18,7 @@ class Group(object):
     def serialize_groups(cls, groups):
         groups_list = []
         for group in groups:
-            groups_list.append(cls.serialize_user(group))
+            groups_list.append(cls.serialize_group(group))
         return groups_list
 
     @classmethod
@@ -46,6 +45,7 @@ class Group(object):
     def get_group_members(cls, group_id):
         with get_db() as session:
             group_link = cls.form_group_link(group_id)
+            from src.models.user import User
             return User.serialize_users(session.run("MATCH (u:User)-[:IS_MEMBER_OF]->(g:Group {groupLink: $group_link})"
                                                     "RETURN u", group_link=group_link).value())
 

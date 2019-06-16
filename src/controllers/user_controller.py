@@ -140,7 +140,7 @@ def get_user_groups(user_id):
     }), StatusCode.OK
 
 
-@user_blueprint.route('users/<user_id>/groups/', methods=['POST'])
+@user_blueprint.route('/users/<user_id>/groups/', methods=['POST'])
 @parse_request_args(GroupLinkSchema())
 def join_group(user_id, args):
     user = User.get_user(user_id)
@@ -153,7 +153,7 @@ def join_group(user_id, args):
     }), StatusCode.OK
 
 
-@user_blueprint.route('users/<user_id>/groups/', methods=['DELETE'])
+@user_blueprint.route('/users/<user_id>/groups/', methods=['DELETE'])
 @parse_request_args(GroupLinkSchema())
 def leave_group(user_id, args):
     user = User.get_user(user_id)
